@@ -83,7 +83,7 @@ def orizontal(matrix,mutari,puncte):
                     gasit=0
                     if length==3:
                         matrix,gasit,puncte=orizontal_L_T(matrix,i ,j,gasit,puncte)
-                        mutari=1
+                        mutari+=1
                     if gasit!=1:
                         for k in range(length):
                             matrix[i][j+k] = 0
@@ -94,28 +94,28 @@ def orizontal(matrix,mutari,puncte):
                             puncte+=10
                         elif length==5:
                             puncte+=50
-                        mutari=1
+                        mutari+=1
     if mutari==0:
         for i in range(n-1):
             for j in range(n-2):
                 if matrix[i][j]==matrix[i+1][j+1]==matrix[i][j+2]:
                    matrix[i][j+1],matrix[i+1][j+1]=matrix[i][j+1],matrix[i+1][j+1]
-                   mutari=1
+                   mutari+=1
                 if matrix[i][j]==matrix[i+1][j-1]==matrix[i][j+2]:
                    matrix[i][j+1],matrix[i+1][j-1]=matrix[i][j+1],matrix[i+1][j-1]
-                   mutari=1
+                   mutari+=1
                 if matrix[i+1][j]==matrix[i][j+1]==matrix[i][j+2]:
                    matrix[i+1][j],matrix[i][j]=matrix[i][j], matrix[i+1][j]
-                   mutari=1
+                   mutari+=1
                 if matrix[i-1][j]==matrix[i][j+1]==matrix[i][j+2]:
                    matrix[i-1][j],matrix[i][j]=matrix[i][j], matrix[i-1][j]
-                   mutari=1
+                   mutari+=1
                 if matrix[i][j]==matrix[i][j+1]==matrix[i+1][j+2]:
                    matrix[i][j+2],matrix[i+1][j+2]= matrix[i][j+2],matrix[i+1][j+2]
-                   mutari=1
+                   mutari+=1
                 if matrix[i][j]==matrix[i][j+1]==matrix[i-1][j+2]:
                    matrix[i][j+2],matrix[i-1][j+2]= matrix[i][j+2],matrix[i-1][j+2]
-                   mutari=1
+                   mutari+=1
     return matrix,mutari,puncte
 def vertical(matrix,mutari,puncte):
     n = len(matrix)
@@ -126,7 +126,7 @@ def vertical(matrix,mutari,puncte):
                     gasit=0
                     if length==3:
                         matrix,gasit,puncte=vertical_L_T(matrix,i ,j,gasit,puncte)
-                        mutari=1
+                        mutari+=1
                     if gasit!=1:
                         for k in range(length):
                             matrix[j+k][i] = 0
@@ -137,40 +137,45 @@ def vertical(matrix,mutari,puncte):
                             puncte+=10
                         elif length==5:
                             puncte+=50
-                        mutari=1
+                        mutari+=1
     if mutari==0:
         for i in range(n-1):
             for j in range(n-2):
                 if matrix[j][i]==matrix[j+1][i+1]==matrix[j+2][i]:
                    matrix[j+1][i],matrix[j+1][i+1]=matrix[j+1][i+1],matrix[j+1][i]
-                   mutari=1
+                   mutari+=1
                 if matrix[j][i]==matrix[j+1][i-1]==matrix[j+2][i]:
                    matrix[j+1][i],matrix[j+1][i-1]=matrix[j+1][i+1],matrix[j+1][i]
-                   mutari=1
+                   mutari+=1
                 if matrix[j][i+1]==matrix[j+1][i]==matrix[j+2][i]:
                    matrix[j][i],matrix[j][i+1]=matrix[j][i+1],matrix[j][i]
-                   mutari=1
+                   mutari+=1
                 if matrix[j][i-1]==matrix[j+1][i]==matrix[j+2][i]:
                    matrix[j][i],matrix[j][i-1]=matrix[j][i-1],matrix[j][i]
-                   mutari=1
+                   mutari+=1
                 if matrix[j][i]==matrix[j+1][i]==matrix[j+2][i+1]:
                    matrix[j+2][i],matrix[j+2][i+1]=matrix[j+2][i+1],matrix[j+2][i]
-                   mutari=1
+                   mutari+=1
                 if matrix[j][i]==matrix[j+1][i]==matrix[j+2][i-1]:
                    matrix[j+2][i],matrix[j+2][i-1]=matrix[j+2][i-1],matrix[j+2][i]
-                   mutari=1
+                   mutari+=1
     return matrix,mutari,puncte
 if __name__ == "__main__":
     puncte_toatale=0
     for i in range(100):
+        nr_mutari=0
         matrix = [[random.randint(1,4) for _ in range(11)] for _ in range(11)] 
         mutari=0
         puncte =0
+        print_matrix(matrix)
         while True:
             matrix,mutari,puncte =vertical(matrix,0,puncte)
+            nr_mutari+=mutari
             matrix,mutari,puncte =orizontal(matrix,0,puncte)
+            nr_mutari+=mutari
             if mutari==0 or puncte>10000:
                 break
-        print(puncte)
+        print(puncte,nr_mutari//10,"Pentru matricea de mai sus")
+        print()
         puncte_toatale+=puncte
-    print(puncte_toatale/100)
+    print(puncte_toatale/10)
