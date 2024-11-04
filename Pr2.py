@@ -94,6 +94,27 @@ def orizontal(matrix,mutari,puncte):
                         elif length==5:
                             puncte+=50
                         mutari=1
+    if mutari==0:
+        for i in range(n-1):
+            for j in range(n-2):
+                if matrix[i][j]==matrix[i+1][j+1]==matrix[i][j+2]:
+                   matrix[i][j],matrix[i+1][j+1]=matrix[j+1][i],matrix[j][i+1]
+                   mutari=1
+                if matrix[i][j]==matrix[i+1][j-1]==matrix[i][j+2]:
+                   matrix[i][j],matrix[i+1][j-1]=matrix[j+1][i],matrix[j][i+1]
+                   mutari=1
+                if matrix[i+1][j]==matrix[i][j+1]==matrix[i][j+2]:
+                   matrix[i+1][j],matrix[i][j+1]=matrix[j+1][i],matrix[j][i+1]
+                   mutari=1
+                if matrix[i-1][j]==matrix[i][j+1]==matrix[i][j+2]:
+                   matrix[i-1][j],matrix[i][j+1]=matrix[j+1][i],matrix[j][i+1]
+                   mutari=1
+                if matrix[i][j]==matrix[i][j+1]==matrix[i+1][j+2]:
+                   matrix[i][j],matrix[i][j+1]=matrix[j+1][i+1],matrix[j][i+1]
+                   mutari=1
+                if matrix[i][j]==matrix[i][j+1]==matrix[i-1][j+2]:
+                   matrix[i][j],matrix[i][j+1]=matrix[j+1][i-1],matrix[j][i+1]
+                   mutari=1
     return matrix,mutari,puncte
 def vertical(matrix,mutari,puncte):
     n = len(matrix)
@@ -116,6 +137,27 @@ def vertical(matrix,mutari,puncte):
                         elif length==5:
                             puncte+=50
                         mutari=1
+    if mutari==0:
+        for i in range(n-1):
+            for j in range(n-2):
+                if matrix[j][i]==matrix[j+1][i+1]==matrix[j+2][i]:
+                   matrix[j][i],matrix[j+1][i+1]=matrix[j+1][i],matrix[j][i+1]
+                   mutari=1
+                if matrix[j][i]==matrix[j+1][i-1]==matrix[j+2][i]:
+                   matrix[j][i],matrix[j+1][i-1]=matrix[j+1][i],matrix[j][i+1]
+                   mutari=1
+                if matrix[j][i+1]==matrix[j+1][i]==matrix[j+2][i]:
+                   matrix[j][i+1],matrix[j+1][i]=matrix[j+1][i],matrix[j][i+1]
+                   mutari=1
+                if matrix[j][i-1]==matrix[j+1][i]==matrix[j+2][i]:
+                   matrix[j][i-1],matrix[j+1][i]=matrix[j+1][i],matrix[j][i+1]
+                   mutari=1
+                if matrix[j][i]==matrix[j+1][i]==matrix[j+2][i+1]:
+                   matrix[j][i],matrix[j+1][i]=matrix[j+1][i+1],matrix[j][i+1]
+                   mutari=1
+                if matrix[j][i]==matrix[j+1][i]==matrix[j+2][i-1]:
+                   matrix[j][i],matrix[j+1][i]=matrix[j+1][i-1],matrix[j][i+1]
+                   mutari=1
     return matrix,mutari,puncte
 if __name__ == "__main__":
     puncte_toatale=0
@@ -128,5 +170,6 @@ if __name__ == "__main__":
             matrix,mutari,puncte =orizontal(matrix,0,puncte)
             if mutari==0 or puncte>10000:
                 break
+        print(puncte_toatale)
         puncte_toatale+=puncte
     print(puncte_toatale/100)
