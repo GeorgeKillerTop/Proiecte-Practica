@@ -1,5 +1,5 @@
 import random
-import time
+### Optional pentru printare si culori
 culori = {
     0: "\033[0m",       # Reset (fără culoare)
     1: "\033[31m",      # Roșu
@@ -14,6 +14,7 @@ def print_matrix(matrix):
             print(f"{color}●", end=" ")
         print()
     print()
+#######
 def drop_candies(matrix):
     n = len(matrix)
     for j in range(n):
@@ -98,22 +99,22 @@ def orizontal(matrix,mutari,puncte):
         for i in range(n-1):
             for j in range(n-2):
                 if matrix[i][j]==matrix[i+1][j+1]==matrix[i][j+2]:
-                   matrix[i][j],matrix[i+1][j+1]=matrix[j+1][i],matrix[j][i+1]
+                   matrix[i][j+1],matrix[i+1][j+1]=matrix[i][j+1],matrix[i+1][j+1]
                    mutari=1
                 if matrix[i][j]==matrix[i+1][j-1]==matrix[i][j+2]:
-                   matrix[i][j],matrix[i+1][j-1]=matrix[j+1][i],matrix[j][i+1]
+                   matrix[i][j+1],matrix[i+1][j-1]=matrix[i][j+1],matrix[i+1][j-1]
                    mutari=1
                 if matrix[i+1][j]==matrix[i][j+1]==matrix[i][j+2]:
-                   matrix[i+1][j],matrix[i][j+1]=matrix[j+1][i],matrix[j][i+1]
+                   matrix[i+1][j],matrix[i][j]=matrix[i][j], matrix[i+1][j]
                    mutari=1
                 if matrix[i-1][j]==matrix[i][j+1]==matrix[i][j+2]:
-                   matrix[i-1][j],matrix[i][j+1]=matrix[j+1][i],matrix[j][i+1]
+                   matrix[i-1][j],matrix[i][j]=matrix[i][j], matrix[i-1][j]
                    mutari=1
                 if matrix[i][j]==matrix[i][j+1]==matrix[i+1][j+2]:
-                   matrix[i][j],matrix[i][j+1]=matrix[j+1][i+1],matrix[j][i+1]
+                   matrix[i][j+2],matrix[i+1][j+2]= matrix[i][j+2],matrix[i+1][j+2]
                    mutari=1
                 if matrix[i][j]==matrix[i][j+1]==matrix[i-1][j+2]:
-                   matrix[i][j],matrix[i][j+1]=matrix[j+1][i-1],matrix[j][i+1]
+                   matrix[i][j+2],matrix[i-1][j+2]= matrix[i][j+2],matrix[i-1][j+2]
                    mutari=1
     return matrix,mutari,puncte
 def vertical(matrix,mutari,puncte):
@@ -141,22 +142,22 @@ def vertical(matrix,mutari,puncte):
         for i in range(n-1):
             for j in range(n-2):
                 if matrix[j][i]==matrix[j+1][i+1]==matrix[j+2][i]:
-                   matrix[j][i],matrix[j+1][i+1]=matrix[j+1][i],matrix[j][i+1]
+                   matrix[j+1][i],matrix[j+1][i+1]=matrix[j+1][i+1],matrix[j+1][i]
                    mutari=1
                 if matrix[j][i]==matrix[j+1][i-1]==matrix[j+2][i]:
-                   matrix[j][i],matrix[j+1][i-1]=matrix[j+1][i],matrix[j][i+1]
+                   matrix[j+1][i],matrix[j+1][i-1]=matrix[j+1][i+1],matrix[j+1][i]
                    mutari=1
                 if matrix[j][i+1]==matrix[j+1][i]==matrix[j+2][i]:
-                   matrix[j][i+1],matrix[j+1][i]=matrix[j+1][i],matrix[j][i+1]
+                   matrix[j][i],matrix[j][i+1]=matrix[j][i+1],matrix[j][i]
                    mutari=1
                 if matrix[j][i-1]==matrix[j+1][i]==matrix[j+2][i]:
-                   matrix[j][i-1],matrix[j+1][i]=matrix[j+1][i],matrix[j][i+1]
+                   matrix[j][i],matrix[j][i-1]=matrix[j][i-1],matrix[j][i]
                    mutari=1
                 if matrix[j][i]==matrix[j+1][i]==matrix[j+2][i+1]:
-                   matrix[j][i],matrix[j+1][i]=matrix[j+1][i+1],matrix[j][i+1]
+                   matrix[j+2][i],matrix[j+2][i+1]=matrix[j+2][i+1],matrix[j+2][i]
                    mutari=1
                 if matrix[j][i]==matrix[j+1][i]==matrix[j+2][i-1]:
-                   matrix[j][i],matrix[j+1][i]=matrix[j+1][i-1],matrix[j][i+1]
+                   matrix[j+2][i],matrix[j+2][i-1]=matrix[j+2][i-1],matrix[j+2][i]
                    mutari=1
     return matrix,mutari,puncte
 if __name__ == "__main__":
@@ -170,6 +171,6 @@ if __name__ == "__main__":
             matrix,mutari,puncte =orizontal(matrix,0,puncte)
             if mutari==0 or puncte>10000:
                 break
-        print(puncte_toatale)
+        print(puncte)
         puncte_toatale+=puncte
     print(puncte_toatale/100)
